@@ -1,0 +1,21 @@
+.App {
+  padding: 24px;
+  min-height: 280px;
+  border-radius: 4px;
+  background-color: #111111CC;
+
+  &_Breadcrumb {
+    &_Lists {
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}
+
+.BtnAlign {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}

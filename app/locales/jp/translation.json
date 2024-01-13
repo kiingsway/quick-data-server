@@ -1,0 +1,15 @@
+{
+  "ListsWord": "リスト",
+  "About": "King Sway Apps ©{{year}} によって作成されました King Sway",
+  "NameWord": "名前",
+  "LastIDWord": "最終ID",
+  "SearchListWord": "リスト検索{{rest}}",
+  "NewList": "新しいリスト",
+  "NewListLabel": "リスト名",
+  "NewListPlaceholder": "リストの名前を入力してください...",
+  "SaveWord": "保存",
+  "CancelWord": "キャンセル",
+  "RequiredFieldWord": "必須フィールド",
+  "MinCharField": "{{n}}文字以上が必要です。",
+  "ListAlreadyExist": "この名前のリストはすでに存在しています。別の名前を選択してください。"
+}

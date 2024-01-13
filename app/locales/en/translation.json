@@ -1,0 +1,18 @@
+{
+  "ListsWord": "Lists",
+  "About": "King Sway Apps ©{{year}} Created by King Sway",
+  "NameWord": "Name",
+  "LastIDWord": "Last ID",
+  "SearchListWord": "Search list{{rest}}",
+  "NewList": "New list",
+  "NewListLabel": "List Name",
+  "NewListPlaceholder": "Enter a name for the list...",
+  "SaveWord": "Save",
+  "EditWord": "Edit",
+  "CancelWord": "Cancel",
+  "RequiredFieldWord": "Required field",
+  "MinCharField": "Minimum of {{n}} characters required.",
+  "ListAlreadyExist": "There is already a list with this name. Please, choose a different name.",
+  "EditList": "Edit list",
+  "EditListModalTitle": "Edit list \"{{listName}}\""
+}

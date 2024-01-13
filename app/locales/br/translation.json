@@ -1,0 +1,18 @@
+{
+  "ListsWord": "Listas",
+  "About": "King Sway Apps ©{{year}} Criado por King Sway",
+  "NameWord": "Nome",
+  "LastIDWord": "Último ID",
+  "SearchListWord": "Pesquisar lista{{rest}}",
+  "NewList": "Nova lista",
+  "NewListLabel": "Nome da lista",
+  "NewListPlaceholder": "Insira um nome para a lista...",
+  "SaveWord": "Salvar",
+  "EditWord": "Editar",
+  "CancelWord": "Cancelar",
+  "RequiredFieldWord": "Campo obrigatório",
+  "MinCharField": "Mínimo de {{n}} caracteres requeridos.",
+  "ListAlreadyExist": "Já existe uma lista com este nome. Por favor, troque o nome.",
+  "EditList": "Editar lista",
+  "EditListModalTitle": "Editar lista \"{{listName}}\""
+}

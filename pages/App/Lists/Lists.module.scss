@@ -1,0 +1,11 @@
+.Lists {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+
+  &_Toolbar {
+    display: flex;
+    flex-direction: row;
+    column-gap: 4px;
+  }
+}
