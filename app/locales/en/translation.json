@@ -11,8 +11,17 @@
   "EditWord": "Edit",
   "CancelWord": "Cancel",
   "RequiredFieldWord": "Required field",
-  "MinCharField": "Minimum of {{n}} characters required.",
+  "MinCharField": "Minimum of {{minimum}} characters required.",
   "ListAlreadyExist": "There is already a list with this name. Please, choose a different name.",
   "EditList": "Edit list",
-  "EditListModalTitle": "Edit list \"{{listName}}\""
+  "EditListModalTitle": "Edit list \"{{listName}}\"",
+  "DeleteWord": "Delete",
+  "AreYouSureDeleteList": "Are you sure you want to delete list \"{{listName}}\"? This action cannot be undone.",
+  "ListDeleted": "List \"{{listName}}\" deleted!",
+  "ListCreated": "List \"{{listName}}\" created!",
+  "ListEdited": "List \"{{listName}}\" edited!",
+  "ForbiddenListName": "Unable to create a list with this name. Please choose another name.",
+  "YesWord": "Yes",
+  "NoWord": "No",
+  "EmptyWord": "(empty)"
 }

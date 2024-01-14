@@ -10,6 +10,6 @@
   "SaveWord": "保存",
   "CancelWord": "キャンセル",
   "RequiredFieldWord": "必須フィールド",
-  "MinCharField": "{{n}}文字以上が必要です。",
+  "MinCharField": "{{minimum}}文字以上が必要です。",
   "ListAlreadyExist": "この名前のリストはすでに存在しています。別の名前を選択してください。"
 }

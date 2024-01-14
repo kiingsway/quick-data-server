@@ -11,8 +11,17 @@
   "EditWord": "Editar",
   "CancelWord": "Cancelar",
   "RequiredFieldWord": "Campo obrigatório",
-  "MinCharField": "Mínimo de {{n}} caracteres requeridos.",
+  "MinCharField": "Mínimo de {{minimum}} caracteres requeridos.",
   "ListAlreadyExist": "Já existe uma lista com este nome. Por favor, troque o nome.",
   "EditList": "Editar lista",
-  "EditListModalTitle": "Editar lista \"{{listName}}\""
+  "EditListModalTitle": "Editar lista \"{{listName}}\"",
+  "DeleteWord": "Excluir",
+  "AreYouSureDeleteList": "Tem certeza de que deseja excluir a lista \"{{listName}}\"? Esta ação não pode ser desfeita.",
+  "ListDeleted": "List \"{{listName}}\" excluída!",
+  "ListCreated": "List \"{{listName}}\" criada!",
+  "ListEdited": "List \"{{listName}}\" editada!",
+  "ForbiddenListName": "Não é possível criar uma lista com esse nome. Por favor, selecione outro nome.",
+  "YesWord": "Sim",
+  "NoWord": "Não",
+  "EmptyWord": "(vazio)"
 }

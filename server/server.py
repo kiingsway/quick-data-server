@@ -3,6 +3,7 @@ from flask_cors import CORS
 import json
 import os
 import traceback
+from unidecode import unidecode
 
 app = Flask(__name__)
 CORS(app)  # Habilita o CORS para todas as rotas
@@ -10,13 +11,22 @@ app.config['JSON_AS_ASCII'] = False
  
 lists_file = 'lists'
 
+import os
+
+def rename_file(file_path, new_name):
+    path, file_name = os.path.split(file_path)
+    new_path = os.path.join(path, f'{new_name}.json')
+    os.rename(file_path, new_path)
+        
+root_path = os.getcwd()
+
 def get_json_data(json_path, fullPath=False):
-    path = json_path if fullPath else f'{os.getcwd()}\\{json_path}.json'
+    path = json_path if fullPath else f'{root_path}\\{json_path}.json'
     with open(path, 'r') as file:
         return json.load(file)
     
 def save_json_data(json_path, data, fullPath=False):
-    path = json_path if fullPath else f'{os.getcwd()}\\{json_path}.json'
+    path = json_path if fullPath else f'{root_path}\\{json_path}.json'
     with open(path, 'w') as file:
         json.dump(data, file, indent=2)
 
@@ -52,12 +62,14 @@ def create_list():
         list_name = list.get('Name')
         if not list_name: return send_error("The 'Name' property is missing or empty.")
         if len(list_name) < 3: return send_error("The list name must have at least 3 characters.")
+        if (unidecode(list_name).lower() == 'lists'): return send_error("The list name cannot be 'lists'")
         lists = get_lists()
         if any(l.get("Name") == list_name for l in lists):
             return send_error("A list with the specified name already exists. Please choose a different name.")
         new_list = {'Name': list_name, 'LastID': 0}
         lists.append(new_list)
         save_json_data(lists_file, lists)
+        save_json_data(list_name, [])
         return new_list 
 
     except Exception as e: return send_error(str(e))
@@ -66,30 +78,21 @@ def create_list():
 @app.route('/lists/<string:list_name>', methods=['PATCH'])
 def edit_list(list_name):
     try:
-        # Checar se recebeu o nome da lista na requisição
-            # Erro relatando que o nome da lista não foi recebido na requisição
         if not list_name: return send_error("Invalid list. Please provide a valid list name.")
-        # Checar se recebeu o nome da lista no body
-            # Erro relatando que o nome da lista não foi recebido no body
         list = json.loads(request.data.decode('utf-8'))
         new_list_name = list.get('Name')
         if not new_list_name: return send_error("The 'Name' property is missing or empty.")
-        # Obter todas as listas
+        if (unidecode(list_name).lower() == 'lists'): return send_error("The list name cannot be 'lists'")
         lists = get_lists()
-        # Checar se a lista existe
-            # Erro relatando que a lista não foi encontrada
         if not any(l.get("Name") == list_name for l in lists):
             return send_error(f"List '{list_name}' not found", 404)
-        # Checar se o novo nome da lista já não está cadastrado
-            # Erro relatando que uma lista com esse nome já existe
         if any(l.get("Name") == new_list_name for l in lists):
             return send_error("A list with the specified name already exists. Please choose a different name.")
-        # Editar iteração
         list_index = next((index for index, list in enumerate(lists) if list["Name"] == list_name), -1)
         lists[list_index] = {**lists[list_index], "Name": new_list_name}
-
+        
+        rename_file(f'{root_path}\\{list_name}.json', new_list_name)
         save_json_data(lists_file, lists)
-        # Salvar JSON
         return send_success('Lista atualizada com sucesso.')
 
     except Exception as e: return send_error(str(e))
@@ -99,11 +102,14 @@ def edit_list(list_name):
 def delete_list(list_name):
     try:
         if not list_name: return send_error("Invalid list. Please provide a valid list name.")
+        if (unidecode(list_name).lower() == 'lists'): return send_error("The list name cannot be 'lists'")
         lists = get_lists()
         list_index = next((index for index, list in enumerate(lists) if list["Name"] == list_name), -1)
         if (list_index == -1): return send_error(f"List '{list_name}' not found", 404)
         del lists[list_index]
         save_json_data(lists_file, lists)
+        list_file_path = f'{root_path}\\{list_name}.json'
+        if os.path.exists(list_file_path): os.remove(list_file_path)
         return send_success(f"List '{list_name}' deleted.")
     except Exception as e: return send_error(str(e))
 
