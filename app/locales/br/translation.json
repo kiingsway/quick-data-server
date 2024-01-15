@@ -1,6 +1,7 @@
 {
   "ListsWord": "Listas",
   "About": "King Sway Apps ©{{year}} Criado por King Sway",
+  "BodyWord": "Corpo",
   "NameWord": "Nome",
   "LastIDWord": "Último ID",
   "SearchListWord": "Pesquisar lista{{rest}}",
@@ -23,5 +24,6 @@
   "ForbiddenListName": "Não é possível criar uma lista com esse nome. Por favor, selecione outro nome.",
   "YesWord": "Sim",
   "NoWord": "Não",
-  "EmptyWord": "(vazio)"
+  "EmptyWord": "(vazio)",
+  "RequestsWord": "Requisições"
 }

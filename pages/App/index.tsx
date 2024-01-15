@@ -1,6 +1,6 @@
 import React from 'react';
 import '@/app/i18n';
-import { Breadcrumb, Dropdown, Layout } from 'antd';
+import { Breadcrumb, Dropdown, Layout, Menu } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import { BreadcrumbItemType } from 'antd/es/breadcrumb/Breadcrumb';
@@ -13,9 +13,15 @@ import { get_lists } from '@/app/services/requests';
 import { toast } from 'react-hot-toast';
 import AppToaster from '../components/AppToaster';
 import languageItems from './languageItems';
+import { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems';
 const { Header, Content, Footer } = Layout;
+import { LuLayoutDashboard } from "react-icons/lu";
+import { TbCloudDataConnection } from "react-icons/tb";
+import Requests from '../Requests';
 
 export const AppContext = React.createContext<IAppContext | undefined>(undefined);
+
+type TTab = 'dashboard' | 'requests';
 
 export default function App(): JSX.Element {
 
@@ -25,6 +31,7 @@ export default function App(): JSX.Element {
 
   const defaultSiteMap: string[] = [t('ListsWord')];
   const [siteMap, setSiteMap] = React.useState<string[]>(defaultSiteMap);
+  const [tab, setTab] = React.useState<TTab>('dashboard');
   const [lists, setLists] = React.useState<IList[]>(listsData);
   const setList = (list?: string): void => list ? setSiteMap([...defaultSiteMap, list]) : setSiteMap(defaultSiteMap);
 
@@ -44,12 +51,15 @@ export default function App(): JSX.Element {
     });
   }, [t]);
 
-  const breadcrumbs: BreadcrumbItemType[] = siteMap.map((title, index, arr) => {
-    const isButton = !index && arr.length > 1;
-    const onClick = (): void => isButton ? setList() : undefined;
-    const className = isButton ? styles.App_Breadcrumb_Lists : undefined;
-    return { title, onClick, className };
-  });
+  const breadcrumbs: BreadcrumbItemType[] = tab === 'requests' ?
+    [{ title: t('RequestsWord') }]
+    :
+    siteMap.map((title, index, arr) => {
+      const isButton = !index && arr.length > 1;
+      const onClick = (): void => isButton ? setList() : undefined;
+      const className = isButton ? styles.App_Breadcrumb_Lists : undefined;
+      return { title, onClick, className };
+    });
 
   function handleAlerts(message: string, type: 'success' | 'error' = 'success'): void {
     if (type === 'success') toast.success(message, { duration: 5000 });
@@ -61,14 +71,31 @@ export default function App(): JSX.Element {
   const AppContent = (): JSX.Element => {
     const selectedList = lists.find(l => l.Name === siteMap?.[1]);
 
+    if (tab === 'requests') {
+      return <Requests />;
+    }
+
     if (selectedList) return <List list={selectedList} />;
     return <Lists lists={lists} setList={setList} />;
   };
+
+  const items: ItemType<MenuItemType>[] = [
+    { key: 'dashboard', label: 'Dashboard', icon: <LuLayoutDashboard /> },
+    { key: 'requests', label: t('RequestsWord'), icon: <TbCloudDataConnection /> },
+  ];
 
   return (
     <Layout>
       <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div className="demo-logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          items={items}
+          selectedKeys={[tab]}
+          onClick={(e) => setTab(e.key as TTab)}
+          style={{ flex: 1, minWidth: 0 }}
+        />
         <Dropdown menu={{ items: languageItems }} placement="bottomLeft" arrow>
           <BtnIcon type='text' icon={<TbWorld />} style={{ opacity: 0.6 }}>{selectedLanguageItem?.label}</BtnIcon>
         </Dropdown>

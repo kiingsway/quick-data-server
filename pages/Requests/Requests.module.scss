@@ -1,0 +1,48 @@
+.Requesters {
+  max-height: 200px;
+  overflow: auto;
+
+  &_StatusBar {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    
+    &_Status {
+      border: 1px solid #222222FF;
+      padding: 10px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  &_Item {
+    display: flex;
+    justify-content: center;
+    
+    &_Container {
+      border: 1px solid #222222FF;
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      &_Form {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        &>small {
+          opacity: 0.7;
+        }
+
+      }
+    }
+  }
+}

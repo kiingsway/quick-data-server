@@ -1,7 +1,12 @@
 import axios from "axios";
 
-const site = "http://127.0.0.1:5000";
+export const site = "http://127.0.0.1:5000";
 const headers = { Accept: 'application/json', 'Content-Type': 'application/json' };
+
+export async function get_list(list_name: string): Promise<IList> {
+  const url = `${site}/lists/${list_name}`;
+  return (await axios.get<IList>(url, { headers })).data;
+}
 
 export async function get_lists(): Promise<IList[]> {
   const url = `${site}/lists`;
