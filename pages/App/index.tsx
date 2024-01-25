@@ -12,12 +12,12 @@ import List from './List';
 import { get_lists } from '@/app/services/requests';
 import { toast } from 'react-hot-toast';
 import AppToaster from '../components/AppToaster';
-import languageItems from './languageItems';
 import { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems';
 const { Header, Content, Footer } = Layout;
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbCloudDataConnection } from "react-icons/tb";
 import Requests from '../Requests';
+import languages from '@/app/languages';
 
 export const AppContext = React.createContext<IAppContext | undefined>(undefined);
 
@@ -66,7 +66,7 @@ export default function App(): JSX.Element {
     else if (type === 'error') toast.error(message, { duration: 15000 });
   }
 
-  const selectedLanguageItem = languageItems.find(l => l?.key === i18n.language);
+  const selectedLanguageItem = languages.find(l => l?.key === i18n.language);
 
   const AppContent = (): JSX.Element => {
     const selectedList = lists.find(l => l.Name === siteMap?.[1]);
@@ -96,7 +96,7 @@ export default function App(): JSX.Element {
           onClick={(e) => setTab(e.key as TTab)}
           style={{ flex: 1, minWidth: 0 }}
         />
-        <Dropdown menu={{ items: languageItems }} placement="bottomLeft" arrow>
+        <Dropdown menu={{ items: languages }} placement="bottomLeft" arrow>
           <BtnIcon type='text' icon={<TbWorld />} style={{ opacity: 0.6 }}>{selectedLanguageItem?.label}</BtnIcon>
         </Dropdown>
       </Header>
