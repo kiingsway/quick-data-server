@@ -4,20 +4,20 @@
     "Title": "Canadian Workplace Essentials (MWF) - Eva Bloor",
     "Type": "Course",
     "Teacher": "Eva Bloor",
-    "Image": "https://picsum.photos/200/300"
+    "Image": "https://picsum.photos/1200/800"
   },
   {
     "ID": 2,
     "Title": "Customer Service Skills (TTF) - Gustavo Correa",
     "Type": "Course",
     "Teacher": "Gustavo Correa",
-    "Image": "https://picsum.photos/200"
+    "Image": "https://picsum.photos/1280/720"
   },
   {
     "ID": 3,
     "Title": "Co-op Info Hub SEB48 (T) - Jun 24, 2024",
     "Type": "Program",
     "Teacher": null,
-    "Image": "https://picsum.photos/300"
+    "Image": "https://picsum.photos/1360/768"
   }
 ]

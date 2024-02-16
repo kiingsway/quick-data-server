@@ -45,7 +45,7 @@ def rename_file(file_path: str, new_name: str):
 
 def get_json_data(json_path: str, full_path: bool = False):
     path = json_path if full_path else f"{root_path}\\{json_path}.json"
-    with open(path, "r") as file:
+    with open(path, "r", encoding="utf8") as file:
         return json.load(file)
 
 
@@ -163,14 +163,14 @@ def delete_list(list_name: str):
 @app.route("/lists/<string:list_name>/items", methods=["GET"])
 def get_list_items(list_name: str):
     try:
-        if not list_name:
-            return send_error("Invalid list. Please provide a valid list name.")
-        lists = get_lists()
-        list_index = next((index for index, li in enumerate(lists) if li["Name"] == list_name), -1)
-        if list_index == -1:
-            return send_error(f"List '{list_name}' not found", 404)
+        list_report = report_list_name(list_name)
+        if list_report['errors']['nameMissing']:
+            return send_error(list_report['texts']['nameMissing'], 400)
+        if not list_report['errors']['found'] or not list_report['list']:
+            return send_error(list_report['texts']['notFound'], 404)
         list_items = get_json_data(list_name)
         return list_items
+    
     except FileNotFoundError:
         return send_error("CRITICAL: File list not found", 404)
     except Exception as e:
@@ -198,17 +198,21 @@ def get_list_item(list_name: str, item_id: int):
 @app.route("/lists/<string:list_name>/items", methods=["POST"])
 def create_list_item(list_name: str):
     try:
-        if not list_name:
-            return send_error("Invalid list. Please provide a valid list name.")
+        list_report = report_list_name(list_name)
+        if list_report['errors']['nameMissing']:
+            return send_error(list_report['texts']['nameMissing'], 400)
+        if not list_report['errors']['found'] or not list_report['list']:
+            return send_error(list_report['texts']['notFound'], 404)
 
         # Corpo da requisição
         new_item = request.get_json()
 
         # Obtém as informações da lista
-        list_data = get_list(list_name)
+        list_data = list_report['list']
+        lastID = list_data.get('LastID')
 
         # Adiciona +1 ao LastID e constrói o objeto do novo item
-        new_id = list_data.LastID + 1
+        new_id = lastID + 1
         body = {**new_item, "ID": new_id}
 
         # Obtém os itens da lista, adiciona esse novo item à lista e salva no JSON

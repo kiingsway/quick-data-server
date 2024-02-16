@@ -16,12 +16,14 @@ import { ItemType, MenuItemType } from 'antd/es/menu/hooks/useItems';
 const { Header, Content, Footer } = Layout;
 import { LuLayoutDashboard } from "react-icons/lu";
 import { TbCloudDataConnection } from "react-icons/tb";
+import { BiTestTube } from "react-icons/bi";
 import Requests from '../Requests';
 import languages from '@/app/languages';
+import Test from '../Test';
 
 export const AppContext = React.createContext<IAppContext | undefined>(undefined);
 
-type TTab = 'dashboard' | 'requests';
+type TTab = 'dashboard' | 'requests' | 'test';
 
 export default function App(): JSX.Element {
 
@@ -71,10 +73,8 @@ export default function App(): JSX.Element {
   const AppContent = (): JSX.Element => {
     const selectedList = lists.find(l => l.Name === siteMap?.[1]);
 
-    if (tab === 'requests') {
-      return <Requests />;
-    }
-
+    if (tab === 'test') return <Test />;
+    if (tab === 'requests') return <Requests />;
     if (selectedList) return <List list={selectedList} />;
     return <Lists lists={lists} setList={setList} />;
   };
@@ -82,6 +82,7 @@ export default function App(): JSX.Element {
   const items: ItemType<MenuItemType>[] = [
     { key: 'dashboard', label: 'Dashboard', icon: <LuLayoutDashboard /> },
     { key: 'requests', label: t('RequestsWord'), icon: <TbCloudDataConnection /> },
+    { key: 'test', label: 'Test', icon: <BiTestTube /> },
   ];
 
   return (
