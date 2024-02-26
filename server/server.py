@@ -264,12 +264,14 @@ def edit_list_item(list_name, item_id: int):
 @app.route("/lists/<string:list_name>/items(<int:item_id>)", methods=["DELETE"])
 def delete_list_item(list_name: str, item_id: int) -> object:
     try:
-        if not list_name:
-            return send_error("Invalid list. Please provide a valid list name.")
-        item = get_list_item(list_name, item_id)
+        list_report = report_list_name(list_name)
+        if list_report['errors']['nameMissing']:
+            return send_error(list_report['texts']['nameMissing'], 400)
+        if not list_report['errors']['found'] or not list_report['list']:
+            return send_error(list_report['texts']['notFound'], 404)
+        
         list_items = get_list_items(list_name)
-        list_item_index = next((index for index, list_item in enumerate(list_items) if list_item["ID"] == item.ID),
-                               -1)
+        list_item_index = next((index for index, list_item in enumerate(list_items) if list_item["ID"] == item_id), -1)
         if list_item_index == -1:
             return send_error(f"List item {item_id} not found", 404)
         del list_items[list_item_index]
