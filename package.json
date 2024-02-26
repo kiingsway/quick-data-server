@@ -14,7 +14,6 @@
     "@typescript-eslint/parser": "^6.18.1",
     "antd": "^5.12.8",
     "axios": "^1.6.5",
-    "classnames": "^2.5.1",
     "country-flag-icons": "^1.5.9",
     "i18next": "^23.7.16",
     "luxon": "^3.4.4",

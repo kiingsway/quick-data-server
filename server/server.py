@@ -240,11 +240,15 @@ def create_list_item(list_name: str):
 @app.route("/lists/<string:list_name>/items(<int:item_id>)", methods=["PATCH"])
 def edit_list_item(list_name, item_id: int):
     try:
-        if not list_name:
-            return send_error("Invalid list. Please provide a valid list name.")
+        list_report = report_list_name(list_name)
+        if list_report['errors']['nameMissing']:
+            return send_error(list_report['texts']['nameMissing'], 400)
+        if not list_report['errors']['found'] or not list_report['list']:
+            return send_error(list_report['texts']['notFound'], 404)
+        
         item = get_list_item(list_name, item_id)
         edited_item = request.get_json()
-        new_edited_item = {**item, **edited_item, "ID": item.ID}
+        new_edited_item = {**item, **edited_item, "ID": item.get('ID')}
         list_items = get_list_items(list_name)
         list_item_index = next((index for index, li in enumerate(list_items) if li["ID"] == item_id), -1)
         if list_item_index == -1:
