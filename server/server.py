@@ -172,7 +172,7 @@ def get_list_items(list_name: str):
         return list_items
     
     except FileNotFoundError:
-        return send_error("CRITICAL: File list not found", 404)
+        return send_error(f"CRITICAL: File list from list '{list_name}' was not found", 404)
     except Exception as e:
         return send_error(str(e))
 
@@ -189,7 +189,7 @@ def get_list_item(list_name: str, item_id: int):
             return send_error(f"List item not found", 404)
         return list_items[list_item_index]
     except FileNotFoundError:
-        return send_error("CRITICAL: File list not found", 404)
+        return send_error(f"CRITICAL: File list from list '{list_name}' was not found", 404)
     except Exception as e:
         return send_error(str(e))
 
@@ -231,7 +231,7 @@ def create_list_item(list_name: str):
         return body
 
     except FileNotFoundError:
-        return send_error("CRITICAL: File list not found", 404)
+        return send_error(f"CRITICAL: File list from list '{list_name}' was not found", 404)
     except Exception as e:
         return send_error(str(e))
 
@@ -284,4 +284,4 @@ def delete_list_item(list_name: str, item_id: int) -> object:
 
 if __name__ == "__main__":
     # Roda o servidor na porta 5000
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
